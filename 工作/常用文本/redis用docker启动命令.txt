@@ -1,0 +1,42 @@
+/root/config/redis
+
+
+
+docker run -p 6379:6379 --name redis -v $PWD/conf/redis.conf:/etc/redis/redis.conf -v $PWD/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
+
+
+方法一：创建redis容器并设置密码
+启动redis设置密码
+docker run --name redis -p 6379:6379 redis --requirepass redis2018
+
+说明：
+--name (启动容器的名称) 
+-p 映射端口:redis启动端口 redis 
+--requirepass 启动密码
+
+方法二：为现有的redis创建密码或修改密码的方法：
+#1.进入redis的容器
+docker exec -it 容器ID bash
+
+#2.进入redis目录
+cd /usr/local/bin
+
+#3.运行命令：
+redis-cli
+
+#4.查看现有的redis密码：
+config get requirepass
+
+#5.设置redis密码
+config set requirepass 密码
+
+如出现：(error) NOAUTH Authentication required
+这是因为redis设置了密码，我们需要使用密码来进行验证之后再来对redis客户端进行操作，否则我们没有操作redis缓存数据库的权限
+auth 密码
+
+清空redis密码
+#将密码置为空字符串即可
+config set requirepass ""
+
+
+

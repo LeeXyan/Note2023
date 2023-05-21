@@ -1,0 +1,1 @@
+docker run -v /zx/fileload:/zx/fileload -d -p 8701:8701 --name fileload --net host fileload:v1

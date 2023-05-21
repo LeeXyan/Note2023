@@ -1,0 +1,50 @@
+
+初中后台管理
+地址:192.168.90.29:8091/whadmin    http://whadmin-dev.bcbook.cn/whadmin
+用户名:thinkgem
+密码:admin
+
+小学后台管理
+http://primary-dev.bcbook.cn/whprimary
+admin/admin
+
+
+Jenkins:
+地址:192.168.90.29:8081
+用户名:root 
+密码:sdbc_2023
+
+百川的测试用户名 密码 地址
+git：lixiaoyan
+密码：lxy123456
+地址：http://git.bcbook.cn/
+
+邮箱：lixiaoyan
+密码：lxy123456
+
+jenkins：lixiaoyan
+密码：lxy123456
+地址：http://zx-jenkins.bcbook.cn / http://192.168.50.149:8081/
+
+MasterGo｜｜智学UI
+地址： https://mastergo.com/files/home
+
+蓝湖：用钉钉登陆
+地址：https://lanhuapp.com/
+
+五好导学管理
+账号：admin
+密码：whdx@2019
+地址：http://ps.wuhaodaoxue.cn/whprimary/a/login
+
+
+开发环境信息
+注册中心：http://zx-as-dev-eureka.bcbook.cn/
+网关：http://zx-as-dev-api.bcbook.cn/
+微服务代理：http://zx-as-dev-boot-admin.bcbook.cn/proxy
+管理后台接口：http://zx-as-dev-api.bcbook.cn/admin/doc.html
+学生APP接口：http://zx-as-dev-api.bcbook.cn/student/doc.html
+
+
+
+代理地址：http://zx-as-dev-boot-admin.bcbook.cn/proxy

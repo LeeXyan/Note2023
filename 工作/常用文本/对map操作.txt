@@ -1,0 +1,120 @@
+ public static void main(String[] args) {
+
+        List<TestDto> testDtoList = new ArrayList<>();
+        testDtoList.add(new TestDto("张三", "北京", 20));
+        testDtoList.add(new TestDto("李四", "北京", 35));
+        testDtoList.add(new TestDto("王五", "北京", 31));
+        testDtoList.add(new TestDto("赵六", "上海", 34));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "山东", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "海南", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "河北", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        testDtoList.add(new TestDto("孙七", "上海", 18));
+        //按单属性分组
+       /* Map<String, List<TestDto>> groupResList = testDtoList.stream().collect(Collectors.groupingBy(TestDto::getAddress));
+        //按多属性分组
+        Map<String, List<TestDto>> groupResList1 = testDtoList.stream().collect(Collectors.groupingBy(obj -> obj.getAddress() + "||" + obj.getName()));
+*/
+
+        Map<String, List<TestDto>> idMap = testDtoList.stream().collect(Collectors.groupingBy(TestDto::getAddress));
+        Map<String, Integer> map =
+                idMap.entrySet()
+                        .stream()
+                        .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().size())).entrySet().stream()
+                        .sorted((e1, e2) -> Integer.compare(e1.getValue(), e2.getValue()))
+                        .collect(Collectors.toMap(Map.Entry::getKey,
+                                Map.Entry::getValue, (e1, e2) -> e1,
+                                LinkedHashMap::new));
+
+
+        System.out.println(map.entrySet()
+                .stream().findFirst().get().getKey());
+       /* Map<String, List<TestDto>> sort22IdMap = idMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEachOrdered(x -> sortMap.put(x.getKey(),x.getValue()));*/
+
+
+        Map<String, Integer> unsortMap = new HashMap<>();
+        unsortMap.put("z", 10);
+        unsortMap.put("b", 5);
+        unsortMap.put("a", 6);
+        unsortMap.put("c", 20);
+        unsortMap.put("d", 1);
+        unsortMap.put("e", 7);
+        unsortMap.put("y", 8);
+        unsortMap.put("n", 99);
+        unsortMap.put("g", 50);
+        unsortMap.put("m", 2);
+        unsortMap.put("f", 9);
+        System.out.println(unsortMap);
+
+        Map<String, Integer> result1 = unsortMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        System.out.println(result1);
+
+        Map<String, Integer> result2 = new LinkedHashMap<>();
+        unsortMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEachOrdered(x -> result2.put(x.getKey(), x.getValue()));
+        System.out.println(result2);
+
+
+        final Map<String, Integer> wordCounts = new HashMap<>();
+        wordCounts.put("USA", 100);
+        wordCounts.put("jobs", 200);
+        wordCounts.put("software", 50);
+        wordCounts.put("technology", 70);
+        wordCounts.put("opportunity", 200);
+
+        //{USA=100, software=50, jobs=200, opportunity=200, technology=70}
+
+        //按升序对值进行排序，使用LinkedHashMap存储排序结果来保留结果映射中元素的顺序
+
+        //1、正向
+        final Map<String, Integer> sortedByCount = wordCounts.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        //{software=50, technology=70, USA=100, jobs=200, opportunity=200}
+
+        // 2、反向 reversed
+        final Map<String, Integer> sortedByCount1 = wordCounts.entrySet()
+                .stream()
+                .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+        //{jobs=200, opportunity=200, USA=100, technology=70, software=50}
+
+
+        //推荐
+        //
+        //sorted()方法将Comparator作为参数使用任何类型的值对映射进行排序。上面的排序可以用Comparator写成：
+
+        //正向 
+        final Map<String, Integer> sortedByCount3 = wordCounts.entrySet()
+                .stream()
+                .sorted((e1, e2) -> e1.getValue().compareTo(e2.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+       //{software=50, technology=70, USA=100, jobs=200, opportunity=200}
+
+
+      //反向 == reversed()
+        final Map<String, Integer> sortedByCount2 = wordCounts.entrySet()
+                .stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+
+      //{jobs=200, opportunity=200, USA=100, technology=70, software=50}
+    }

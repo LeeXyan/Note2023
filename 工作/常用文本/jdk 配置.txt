@@ -1,0 +1,9 @@
+/root/jdk/jdk1.8.0_151
+
+
+
+
+JAVA_HOME=/root/jdk/jdk1.8.0_151
+CLASSPATH=$JAVA_HOME/bin.:
+PATH=$JAVA_HOME/bin:$PATH
+export JAVA_HOME PATH CLASSPATH

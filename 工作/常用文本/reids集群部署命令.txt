@@ -1,0 +1,21 @@
+mkdir -p /usr/local/redis-cluster/master-7001/{data,conf}
+vim /usr/local/redis-cluster/master-7001/conf/redis.conf
+
+
+mkdir -p /usr/local/redis-cluster/slave-7002/{data,conf}
+vim /usr/local/redis-clusterslave-7002/conf/redis.conf
+ 
+ 
+mkdir -p /usr/local/redis-cluster/slave-7003/{data,conf}
+vim /usr/local/redis-clusterslave-7003/conf/redis.conf
+
+
+
+
+docker run --name redis -p 7000:7000 redis --requirepass  123
+
+docker exec -it redis bash
+
+redis-cli --cluster create 192.168.5.165:7001 192.168.5.165:7002 192.168.5.165:7003
+
+docker run -p 6379:6379 --name redis -v $PWD/conf/redis.conf:/etc/redis/redis.conf -v $PWD/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes
